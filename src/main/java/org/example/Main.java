@@ -1,19 +1,20 @@
 package org.example;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.controller.UsuarioController;
+import org.example.service.UsuarioService;
+import spark.Spark;
+
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        UsuarioService usuarioService = new UsuarioService();
+        ObjectMapper objectMapper = new ObjectMapper();
+        UsuarioController usuarioController = new UsuarioController(usuarioService, objectMapper);
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        Spark.port(8080);
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
-        }
+        Spark.before((request, response) -> response.type("application/json"));
+
+        Spark.path("/api", usuarioController::respostasRequisicoes);
     }
 }

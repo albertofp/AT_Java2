@@ -7,5 +7,4 @@ import lombok.Setter;
 @Setter
 public class UsuarioDTOOutput {
     private int id;
-    private String senha;
 }

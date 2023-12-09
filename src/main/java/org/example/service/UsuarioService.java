@@ -5,6 +5,7 @@ import org.example.dto.UsuarioDTOOutput;
 import org.example.model.Usuario;
 import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,6 +14,11 @@ public class UsuarioService {
     private List<Usuario> listaUsuarios;
 
     private final ModelMapper modelMapper = new ModelMapper();
+
+    public UsuarioService() {
+        this.listaUsuarios = new ArrayList<Usuario>();
+    }
+
     public Collection<UsuarioDTOOutput> listar() {
         return listaUsuarios.stream()
                 .map(usuario -> modelMapper.map(usuario, UsuarioDTOOutput.class))
@@ -35,10 +41,6 @@ public class UsuarioService {
             }
         }
         return null;
-    }
-
-    public List<Usuario> getAllUsuarios() {
-        return listaUsuarios;
     }
 
     public void alterar(UsuarioDTOInput usuarioDTOInput) {
